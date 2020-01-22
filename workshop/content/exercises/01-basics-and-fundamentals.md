@@ -34,13 +34,13 @@ spec:
 The service can be deployed using the following command:
 
 ```execute
-oc apply -n knativetutorial -f service.yaml
+oc apply -n %project_namespace% -f service.yaml
 ```
 
 After successful deployment of the service we should see a Kubernetes Deployment named similar to greeter-nsrbr-deployment available:
 
 ```execute
-oc get deployments -n knativetutorial
+oc get deployments -n %project_namespace%
 ```
 <em> Note: The actual deployment name may vary in your setup</em>
 
@@ -63,21 +63,21 @@ The service-based deployment strategy that we did now will create many Knative r
 <h2>service</h2>
 
 ```execute
-oc --namespace knativetutorial  get services.serving.knative.dev greeter
+oc --namespace %project_namespace%  get services.serving.knative.dev greeter
 ```
 
 <h2>configuration</h2>
 
 ```execute
-oc --namespace knativetutorial get configurations.serving.knative.dev greeter
+oc --namespace %project_namespace% get configurations.serving.knative.dev greeter
 ```
 <h2>routes</h2>
 
 ```execute
-oc --namespace knativetutorial get routes.serving.knative.dev greeter
+oc --namespace %project_namespace% get routes.serving.knative.dev greeter
 ```
 
-When the service was invoked with http `$IP_ADDRESS` 'Host:greeter.knativetutorial.example.com', you noticed that we added a Host header to the request with value `greeter.knativetutorial.example.com`. This FQDN is automatically assigned to your Knative service by the Knative Routes and uses the following format: `<service-name>.<namespace>.<domain-suffix>`.
+When the service was invoked with http `$IP_ADDRESS` 'Host:greeter.%project_namespace%.example.com', you noticed that we added a Host header to the request with value `greeter.%project_namespace%.example.com`. This FQDN is automatically assigned to your Knative service by the Knative Routes and uses the following format: `<service-name>.<namespace>.<domain-suffix>`.
 
 <em> Note: The domain suffix in this case example.com is configurable via the config map config-domain of knative-serving namespace.</em>
 
@@ -85,7 +85,7 @@ When the service was invoked with http `$IP_ADDRESS` 'Host:greeter.knativetutori
 <h2>revisions</h2>
 
 ```execute
-oc --namespace knativetutorial get rev \
+oc --namespace %project_namespace% get rev \
  --selector=serving.knative.dev/service=greeter \
  --sort-by="{.metadata.creationTimestamp}"
 ```
@@ -130,7 +130,7 @@ Adding an environment variable that will be used as the message prefix
 Let us deploy the new revision using the command:
 
 ```execute
-oc apply -n knativetutorial -f service-env.yaml
+oc apply -n %project_namespace% -f service-env.yaml
 ```
 
 After successful deployment of the service we should see a Kubernetes deployment called `greeter-v2-deployment`.
@@ -141,7 +141,7 @@ Now if you list revisions, you will see two of them, named similar to `greeter-v
 <h2>revisions</h2>
 
 ```execute
-oc --namespace knativetutorial get rev \
+oc --namespace %project_namespace% get rev \
  --selector=serving.knative.dev/service=greeter \
  --sort-by="{.metadata.creationTimestamp}"
 ```
@@ -205,21 +205,21 @@ The above service definition creates three sub-routes(named after traffic tags) 
 Let us redeploy the greeter service by pinning it to the `greeter-v1`:
 
 ```execute
-oc -n knativetutorial  apply -f service-pinned.yaml
+oc -n %project_namespace%  apply -f service-pinned.yaml
 ```
 
 Let us list the available sub-routes:
 
 ```execute
-oc -n knativetutorial get ksvc greeter -oyaml \
+oc -n %project_namespace% get ksvc greeter -oyaml \
   | yq r - 'status.traffic[*].url'
 ```
 
 The above command should return you three sub-routes for the main `greeter` route:
 
-- http://current-greeter.knativetutorial.%cluster_subdomain%
-- http://prev-greeter.knativetutorial.%cluster_subdomain%
-- http://latest-greeter.knativetutorial.%cluster_subdomain%
+- http://current-greeter.%project_namespace%.%cluster_subdomain%
+- http://prev-greeter.%project_namespace%.%cluster_subdomain%
+- http://latest-greeter.%project_namespace%.%cluster_subdomain%
 
 <ol>
 <li>the sub route for the traffic tag current</li>
@@ -236,5 +236,5 @@ As per the current traffic distribution, the greeter route will always return re
 <h1>Cleanup</h1>
 
 ```execute
-oc -n knativetutorial delete services.serving.knative.dev greeter
+oc -n %project_namespace% delete services.serving.knative.dev greeter
 ```

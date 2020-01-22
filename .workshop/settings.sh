@@ -5,3 +5,4 @@ WORKSHOP_DESCRIPTION="Get started with your serverless journey"
 RESOURCE_BUDGET=medium
 MAX_SESSION_AGE=3600
 IDLE_TIMEOUT=300
+SPAWNER_MODE=hosted-workshop
