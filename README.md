@@ -10,5 +10,5 @@ In order to run this workshop just type these commands:
     git clone --single-branch --branch master --recurse-submodules https://github.com/luisarizmendi/lab-knative.git
 
     cd lab-knative
-    
+
     .workshop/scripts/deploy-personal.sh
