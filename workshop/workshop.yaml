@@ -1,0 +1,8 @@
+name: Knative
+
+modules:
+    activate:
+    - workshop-overview
+    - setup-environment
+    - exercises/01-basics-and-fundamentals.md
+    - workshop-summary
