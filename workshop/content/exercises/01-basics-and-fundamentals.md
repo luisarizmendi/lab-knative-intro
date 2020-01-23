@@ -48,7 +48,7 @@ oc get deployments -n %project_namespace%
 <h1>Invoke Service</h1>
 
 ```execute
-export SVC_URL=`oc get rt greeter -o yaml | yq read - 'status.url'` && http $SVC_URL
+export SVC_URL=`oc get rt greeter -n %project_namespace% --template '{{.status.url}}'` && http $SVC_URL
 ```
 
 The http command should return a response containing a line similar to *Hi greeter ⇒ '6fee83923a9f' : 1*
@@ -145,8 +145,12 @@ oc --namespace %project_namespace% get rev \
  --selector=serving.knative.dev/service=greeter \
  --sort-by="{.metadata.creationTimestamp}"
 ```
-Invoking Service will now show an output like *Namaste greeter ⇒ '6fee83923a9f' : 1*, where Namaste is the value we configured via environment variable in the Knative service resource file.
 
+Invoking Service will now show an output like *Namaste greeter ⇒ '6fee83923a9f' : 1*, where `Namaste` is the value we configured via environment variable in the Knative service resource file:
+
+```execute
+http $SVC_URL
+```
 
 
 <h1>Pinning Service to a Revision</h1>
@@ -211,8 +215,7 @@ oc -n %project_namespace%  apply -f service-pinned.yaml
 Let us list the available sub-routes:
 
 ```execute
-oc -n %project_namespace% get ksvc greeter -oyaml \
-  | yq r - 'status.traffic[*].url'
+oc get ksvc greeter -n %project_namespace%  -o jsonpath='{.status.traffic[*].url}' | tr ' ' '\n'
 ```
 
 The above command should return you three sub-routes for the main `greeter` route:

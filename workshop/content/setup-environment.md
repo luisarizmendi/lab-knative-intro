@@ -1,7 +1,6 @@
-Before we start setting up the environment, let’s clone the tutorial sources and set the TUTORIAL_HOME environment variable to point to the root directory of the tutorial:
+Before we start setting up the environment, let’s export the tutorial path configuring the TUTORIAL_HOME environment variable to point to the root directory of the tutorial:
 
 ```execute
-git clone -b release/0.7.x https://github.com/redhat-developer-demos/knative-tutorial &&\
 export TUTORIAL_HOME="$(pwd)/knative-tutorial"
 ```
 

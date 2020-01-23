@@ -7,6 +7,12 @@ modules:
         exit_sign: Start Workshop
     exercises/01-basics-and-fundamentals:
         name: Basics and Fundamentals
+    exercises/02-knative-client:
+        name: Knative Client
+    exercises/03-scaling:
+        name: Scaling
+    exercises/04-eventing:
+        name: Eventing
     workshop-summary:
         name: Workshop Summary
         exit_sign: Finish Workshop

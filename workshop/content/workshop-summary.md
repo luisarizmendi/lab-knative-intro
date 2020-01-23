@@ -1,1 +1,1 @@
-This is the last page of the workshop. Include in this page a summary of the workshop and any links to resources relevant to the workshop. This ensures anyone doing the workshop has material they can research later to learn more.
+In this Workshop we started with setup and understanding fundamentals of Knative concepts such as service, configuration, revision etc., and finally deploying some use cases which could help deploying serverless applications.
