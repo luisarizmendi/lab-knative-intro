@@ -1,6 +1,10 @@
  #/bin/bash
 
 
+ echo "****************************"
+ echo "Configuring Service Mesh"
+ echo "****************************"
+
 oc process -f template.yaml --param-file=env | oc create -f -
 
 RESOURCE="ServiceMeshControlPlane"

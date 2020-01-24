@@ -1,4 +1,10 @@
-Before we start setting up the environment, let’s export the tutorial path configuring the TUTORIAL_HOME environment variable to point to the root directory of the tutorial:
+Before we start setting up the environment, oc command is installed in this system. There is a project that runs the contents of this workshop but you should run all the commands in your own project, so run:
+
+```execute
+oc project workshop-knative-intro-%username%
+```
+
+Also let’s export the tutorial path configuring the TUTORIAL_HOME environment variable to point to the root directory of the tutorial:
 
 ```execute
 export TUTORIAL_HOME="$(pwd)/knative-tutorial"
