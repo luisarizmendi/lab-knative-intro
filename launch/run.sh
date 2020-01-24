@@ -68,7 +68,7 @@ then
     oc login -u clusteradmin -p redhat > /dev/null 2>&1
     oc new-project workshop-knative-intro-user$i > /dev/null 2>&1
     oc adm policy add-role-to-user admin user$i -n workshop-knative-intro-user$i
-    oc adm policy add-role-to-user admin user$i -n workshop-knative-intro-content
+    #oc adm policy add-role-to-user admin user$i -n workshop-knative-intro-content
   done
 
 
@@ -95,10 +95,12 @@ oc project workshop-knative-intro-content
 
 if [ $MULTIUSER = true ]
 then
-  .workshop/scripts/deploy-spawner.sh  --settings=develop
+  #.workshop/scripts/deploy-spawner.sh  --settings=develop
+  .workshop/scripts/deploy-spawner.sh
   echo "multiuser" > typedeployed
 else
-  .workshop/scripts/deploy-personal.sh  --settings=develop
+  #.workshop/scripts/deploy-personal.sh  --settings=develop
+  .workshop/scripts/deploy-personal.sh
   echo "personal" > typedeployed
 fi
 
