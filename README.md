@@ -10,7 +10,7 @@ PREREQUISITES
 
 This workshop needs some prerequisites to be configured in the OpenShift cluster in order to make it work:
 
-           * Project named "workshop-knative-intro-content"
+           * Project named "workshop-knative-intro-content". Users must have admin role in that project
            * Knative serving and eventing support
            * Service Mesh (Istio) support (project workshop-knative-intro-content included in member roll list)
 

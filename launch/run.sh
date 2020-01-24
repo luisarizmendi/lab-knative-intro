@@ -49,7 +49,8 @@ then
 
 
     oc new-project workshop-knative-intro-content
-    oc patch servicemeshmemberrolls.maistra.io -n istio-system default --type='json' -p='[{"op": "add", "path": "/spec/members/0", "value":"workshop-knative-intro-content"}]'
+    oc adm policy add-role-to-group admin developers -n workshop-knative-intro-content
+    #oc patch servicemeshmemberrolls.maistra.io -n istio-system default --type='json' -p='[{"op": "add", "path": "/spec/members/0", "value":"workshop-knative-intro-content"}]'
 
 
 fi
@@ -68,16 +69,16 @@ then
   done
 
 
-  echo "Add projects to the Service Mesh"
+  #echo "Add projects to the Service Mesh"
 
-  echo '#!/bin/bash' > tmp.sh
-  chmod +x tmp.sh
-  for i in $(eval echo "{1..$USERCOUNT}") ; do
-    value="oc patch servicemeshmemberrolls.maistra.io -n istio-system default --type='json' -p='[{\"op\": \"add\", \"path\": \"/spec/members/$i\", \"value\":\"workshop-knative-intro-user$i\"}]'"
-    echo $value >> tmp.sh
-  done
-  ./tmp.sh
-  rm tmp.sh
+  #echo '#!/bin/bash' > tmp.sh
+  #chmod +x tmp.sh
+  #for i in $(eval echo "{1..$USERCOUNT}") ; do
+  #  value="oc patch servicemeshmemberrolls.maistra.io -n istio-system default --type='json' -p='[{\"op\": \"add\", \"path\": \"/spec/members/$i\", \"value\":\"workshop-knative-intro-user$i\"}]'"
+  #  echo $value >> tmp.sh
+  #done
+  #./tmp.sh
+  #rm tmp.sh
 
 fi
 
@@ -85,11 +86,9 @@ fi
 
 
 echo "Building and deploying workshop"
+cd ..
 
 oc project workshop-knative-intro-content
-
-
-cd ..
 
 if [ $MULTIUSER = true ]
 then
@@ -99,6 +98,8 @@ else
   .workshop/scripts/deploy-personal.sh
   echo "personal" > typedeployed
 fi
+
+#oc patch  $(oc get dc -o name)  --type='json' --patch='[{"op": "add", "path": "/spec/template/metadata/annotations", "value":{"sidecar.istio.io/inject": "true"}}]'
 
 sleep 5
 .workshop/scripts/build-workshop.sh

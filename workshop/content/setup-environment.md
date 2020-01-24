@@ -1,4 +1,4 @@
-Before we start setting up the environment, oc command is installed in this system. There is a project that runs the contents of this workshop, if this workshop is deployed for a single user just use it but if it was deployed in multiuser mode you should run all the commands in your own project, in that case run:
+Before we start setting up the environment, oc command is installed in this system. There is a project that runs the contents of this workshop (%project_namespace%), if this workshop is deployed for a single user then just use it but if it was deployed in multiuser mode you should run all the commands in your own project, in that case run:
 
 ```execute
 oc project workshop-knative-intro-%username%

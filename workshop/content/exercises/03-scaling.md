@@ -39,7 +39,7 @@ spec:
 Navigate to the tutorial chapter’s knative folder:
 
 ```execute
-cd $TUTORIAL_HOME/04-scaling/knative
+cd $TUTORIAL_HOME/02-basics/knative
 ```
 
 The service can be deployed using the command:
@@ -118,12 +118,22 @@ The Knative service definition above will allow each service pod to handle max o
 <h2>Deploy service</h2>
 
 ```execute
+cd $TUTORIAL_HOME/04-scaling/knative
+```
+
+```execute
 oc apply -n %project_namespace% -f service-10.yaml
 ```
 
 <h2>Invoke Service</h2>
 
-We will not invoke the service directly as we need to send the load to see the autoscaling:
+Invoke once to check that everything is ok:
+
+```execute
+export SVC_URL=`oc get rt greeter -n %project_namespace% --template '{{.status.url}}'` && http $SVC_URL
+```
+
+We will not invoke the service directly as we need to send the load to see the autoscaling.
 
 Run watch command in the secondary terminal and run the following command:
 
