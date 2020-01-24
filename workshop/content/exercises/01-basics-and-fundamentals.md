@@ -228,9 +228,19 @@ Let us list the available sub-routes:
 
 The above command should return you three sub-routes for the main `greeter` route:
 
+
+{% if username == blank %}
 - http://current-greeter.{{ project_namespace }}.{{ cluster_subdomain }}
 - http://prev-greeter.{{ project_namespace }}.{{ cluster_subdomain }}
 - http://latest-greeter.{{ project_namespace }}.{{ cluster_subdomain }}
+{% endif %}
+
+{% if username != blank %}
+- http://current-greeter.< project_namespace >.{{ cluster_subdomain }}
+- http://prev-greeter.< project_namespace >.{{ cluster_subdomain }}
+- http://latest-greeter.< project_namespace >.{{ cluster_subdomain }}
+{% endif %}
+
 
 <ol>
 <li>the sub route for the traffic tag current</li>
