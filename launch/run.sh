@@ -49,7 +49,7 @@ then
 
 
     oc new-project workshop-knative-intro-content
-    #oc patch servicemeshmemberrolls.maistra.io -n istio-system default --type='json' -p='[{"op": "add", "path": "/spec/members/0", "value":"workshop-knative-intro-content"}]'
+    oc patch servicemeshmemberrolls.maistra.io -n istio-system default --type='json' -p='[{"op": "add", "path": "/spec/members/0", "value":"workshop-knative-intro-content"}]'
 
 
 fi
@@ -79,15 +79,6 @@ then
   ./tmp.sh
   rm tmp.sh
 
-else
-  #echo "Create projects to run the workshop and adding it to Service Mesh"
-  #OC_NAME=$(oc whoami)
-  #oc new-project workshop-knative-intro-${OC_NAME}
-  #value="oc patch servicemeshmemberrolls.maistra.io -n istio-system default --type='json' -p='[{\"op\": \"add\", \"path\": \"/spec/members/1\", \"value\":\"workshop-knative-intro-${OC_NAME}\"}]'"
-  #echo $value >> tmp.sh
-  #./tmp.sh
-  #rm tmp.sh
-  oc patch servicemeshmemberrolls.maistra.io -n istio-system default --type='json' -p='[{"op": "add", "path": "/spec/members/0", "value":"workshop-knative-intro-content"}]'
 fi
 
 
