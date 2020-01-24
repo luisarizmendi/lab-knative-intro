@@ -1,0 +1,23 @@
+kind: Template
+apiVersion: v1
+metadata:
+  annotations:
+    tags: knativeeventing
+  name: knativeeventing
+objects:
+- apiVersion: operators.coreos.com/v1alpha1
+  kind: Subscription
+  metadata:
+    name: knative-eventing-operator
+    namespace: openshift-operators
+  spec:
+    channel: ${CHANNEL_KNATIVE_EVENTING}
+    name: knative-eventing-operator
+    source: community-operators
+    sourceNamespace: openshift-marketplace
+parameters:
+    #CHANNEL_ELASTICSEARCH=$(/usr/local/bin/oc get packagemanifest elasticsearch-operator -n openshift-marketplace -o jsonpath='{.status.channels[].name}')
+  - name: CHANNEL_KNATIVE_EVENTING
+    displayName: Channel KNATIVE
+    description: Channel for KNATIVE
+    required: true
