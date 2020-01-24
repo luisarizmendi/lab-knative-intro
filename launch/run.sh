@@ -49,7 +49,7 @@ then
 
 
     oc new-project workshop-knative-intro-content
-    oc patch servicemeshmemberrolls.maistra.io -n istio-system default --type='json' -p='[{"op": "add", "path": "/spec/members/0", "value":"workshop-knative-intro-content"}]'
+    #oc patch servicemeshmemberrolls.maistra.io -n istio-system default --type='json' -p='[{"op": "add", "path": "/spec/members/0", "value":"workshop-knative-intro-content"}]'
 
 
 fi
@@ -80,13 +80,14 @@ then
   rm tmp.sh
 
 else
-  echo "Create projects to run the workshop and adding it to Service Mesh"
-  OC_NAME=$(oc whoami)
-  oc new-project workshop-knative-intro-${OC_NAME}
-  value="oc patch servicemeshmemberrolls.maistra.io -n istio-system default --type='json' -p='[{\"op\": \"add\", \"path\": \"/spec/members/1\", \"value\":\"workshop-knative-intro-${OC_NAME}\"}]'"
-  echo $value >> tmp.sh
-  ./tmp.sh
-  rm tmp.sh
+  #echo "Create projects to run the workshop and adding it to Service Mesh"
+  #OC_NAME=$(oc whoami)
+  #oc new-project workshop-knative-intro-${OC_NAME}
+  #value="oc patch servicemeshmemberrolls.maistra.io -n istio-system default --type='json' -p='[{\"op\": \"add\", \"path\": \"/spec/members/1\", \"value\":\"workshop-knative-intro-${OC_NAME}\"}]'"
+  #echo $value >> tmp.sh
+  #./tmp.sh
+  #rm tmp.sh
+  oc patch servicemeshmemberrolls.maistra.io -n istio-system default --type='json' -p='[{"op": "add", "path": "/spec/members/0", "value":"workshop-knative-intro-content"}]'
 fi
 
 
@@ -110,8 +111,8 @@ fi
 
 sleep 5
 .workshop/scripts/build-workshop.sh
-
-sleep 30
+oc rollout status $(oc get dc -o name)
+sleep 10
 
 
 WORKSHOP_URL=$(oc get routes.route.openshift.io  | grep workshop | awk '{print $2}')
@@ -121,11 +122,6 @@ echo ""
 echo "**********************************************************************************************"
 echo "   Now you can open https://$WORKSHOP_URL"
 echo ""
-if [ $MULTIUSER = true ]
-then
-  echo "   Use your OpenShift credentials to log in"
-else
-  echo "   Credentials are workshop / workshop"
-fi
+echo "   Use your OpenShift credentials to log in"
 echo "**********************************************************************************************"
 echo ""
