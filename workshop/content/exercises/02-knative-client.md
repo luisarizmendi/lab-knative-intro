@@ -9,23 +9,23 @@ We will perform the same operations in this chapter but with kn that is already 
 To create the greeter service using kn run the following command:
 
 ```execute
-kn service create greeter --namespace %project_namespace% --image quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+kn service create greeter --namespace {{ project_namespace }} --image quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
 ```
 
 A successful create of the greeter service should show a response like
 
-    Service 'greeter' successfully created in namespace %project_namespace%.
+    Service 'greeter' successfully created in namespace {{ project_namespace }}.
     Waiting for service 'greeter' to become ready ... OK
 
     Service URL:
-    http://greeter.%project_namespace%.%cluster_subdomain%
+    http://greeter.{{ project_namespace }}.{{ cluster_subdomain }}
 
 <h2>List Knative Services</h2>
 
 You can list the created services using the command:
 
 ```execute
-kn service list --namespace %project_namespace%
+kn service list --namespace {{ project_namespace }}
 ```
 
 <h2>Invoke Service</h2>
@@ -33,7 +33,7 @@ kn service list --namespace %project_namespace%
 You can verify what the kn client has deployed, to make sure its inline with what you have see in [previous chapter](01-basics-and-fundamentals).
 
 ```execute
-export SVC_URL=`oc get rt greeter -n %project_namespace% --template '{{.status.url}}'` && http $SVC_URL
+export SVC_URL=`oc get rt greeter -n {{ project_namespace }} --template '{{.status.url}}'` && http $SVC_URL
 ```
 
 <h2>Update Knative Service</h2>
@@ -72,9 +72,9 @@ metadata:
   creationTimestamp: "2019-08-05T12:51:40Z"
   generation: 2
   name: greeter
-  namespace: %project_namespace%
+  namespace: {{ project_namespace }}
   resourceVersion: "35193"
-  selfLink: /apis/serving.knative.dev/v1alpha1/namespaces/%project_namespace%/services/greeter
+  selfLink: /apis/serving.knative.dev/v1alpha1/namespaces/{{ project_namespace }}/services/greeter
   uid: c4ee1f47-b77f-11e9-96b1-22e0f431a3ed
 spec:
   template:
@@ -94,7 +94,7 @@ spec:
     percent: 100
 status:
   address:
-    url: http://greeter.%project_namespace%.%cluster_subdomain%
+    url: http://greeter.{{ project_namespace }}.{{ cluster_subdomain }}
   conditions:
   - lastTransitionTime: "2019-08-05T13:03:33Z"
     status: "True"
@@ -112,7 +112,7 @@ status:
   - latestRevision: true
     percent: 100
     revisionName: greeter-578mv
-  url: http://greeter.%project_namespace%.%cluster_subdomain%
+  url: http://greeter.{{ project_namespace }}.{{ cluster_subdomain }}
 ```
 
 <h2>Delete Knative Service</h2>
@@ -127,12 +127,12 @@ kn service delete greeter
 
 A successful delete should show an output like
 
-    Service 'greeter' successfully deleted in namespace %project_namespace%.
+    Service 'greeter' successfully deleted in namespace {{ project_namespace }}.
 
 Listing services you will notice that the greeter service no longer exists.
 
 ```execute
-kn service list --namespace %project_namespace%
+kn service list --namespace {{ project_namespace }}
 ```
 
 <h1>Knative Revision Commands</h1>
@@ -179,7 +179,7 @@ metadata:
     serving.knative.dev/configurationGeneration: "2"
     serving.knative.dev/service: greeter
   name: greeter-7cqzq
-  namespace: %project_namespace%
+  namespace: {{ project_namespace }}
   ownerReferences:
   - apiVersion: serving.knative.dev/v1alpha1
     blockOwnerDeletion: true
@@ -188,7 +188,7 @@ metadata:
     name: greeter
     uid: 2f89f930-b7fa-11e9-96b1-22e0f431a3ed
   resourceVersion: "40312"
-  selfLink: /apis/serving.knative.dev/v1alpha1/namespaces/%project_namespace%/revisions/greeter-7cqzq
+  selfLink: /apis/serving.knative.dev/v1alpha1/namespaces/{{ project_namespace }}/revisions/greeter-7cqzq
   uid: 49e30221-b7fa-11e9-96b1-22e0f431a3ed
 spec:
   containers:
@@ -233,7 +233,7 @@ kn revision delete $REVISION_NAME
 
 The command should return an output like
 
-    Revision 'greeter-7cqzq' successfully deleted in namespace %project_namespace%.
+    Revision 'greeter-7cqzq' successfully deleted in namespace {{ project_namespace }}.
 
 Now invoking service will return the response from revision greeter-6m45j.
 
@@ -254,7 +254,7 @@ kn route list
 The command should return an output like
 
     NAME      URL                                          AGE   CONDITIONS   TRAFFIC
-    greeter   http://greeter.%project_namespace%.%cluster_subdomain%   10m   3 OK / 3     100% -> greeter-zd7jk
+    greeter   http://greeter.{{ project_namespace }}.{{ cluster_subdomain }}   10m   3 OK / 3     100% -> greeter-zd7jk
 
 <h1>Cleanup</h1>
 

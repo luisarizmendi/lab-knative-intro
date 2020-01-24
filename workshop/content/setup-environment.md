@@ -1,8 +1,19 @@
-Before we start setting up the environment, oc command is installed in this system. There is a project that runs the contents of this workshop (%project_namespace%), if this workshop is deployed for a single user then just use it but if it was deployed in multiuser mode you should run all the commands in your own project, in that case run:
+Before we start setting up the environment, oc command is installed in this system.
+
+{% if username == blank %}
+This workshop is using the project {{ project_namespace }}. Please be aware that the workshop content pod, deployment config, route, etc is also contained in this project so try to not get confused by that.
+
+{% endif %}
+
+{% if username != blank %}
+you should run all the commands in your own project. You can use this pre-created project:
 
 ```execute
-oc project workshop-knative-intro-%username%
+oc project workshop-knative-intro-{{ username }}
 ```
+{% endif %}
+
+
 Regarding the Console tab, remember to change to your project since default project could be cached, in that case you will find a lot of "forbidden access" messages.</em>
 
 Also let’s export the tutorial path configuring the TUTORIAL_HOME environment variable to point to the root directory of the tutorial:
