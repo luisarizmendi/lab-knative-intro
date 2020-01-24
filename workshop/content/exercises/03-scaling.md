@@ -127,7 +127,7 @@ oc apply -n {{ project_namespace }} -f service-10.yaml
 
 <h2>Invoke Service</h2>
 
-Invoke once to check that everything is ok:
+Invoke once to check that everything is ok (if not repeat the command until you get an answer):
 
 ```execute
 export SVC_URL=`oc get rt prime-generator -n {{ project_namespace }} --template '{{.status.url}}'` && http $SVC_URL
@@ -216,6 +216,14 @@ oc apply -n {{ project_namespace }} -f service-min-scale.yaml
 ```
 
 After the deployment was successful we should see a Kubernetes Deployment called prime-generator-v2-deployment with two pods available.
+
+
+Invoke once to check that everything is ok (if not repeat the command until you get an answer):
+
+```execute
+export SVC_URL=`oc get rt prime-generator -n {{ project_namespace }} --template '{{.status.url}}'` && http $SVC_URL
+```
+
 
 In the secondary terminal and run the following command :
 

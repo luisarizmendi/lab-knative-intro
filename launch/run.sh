@@ -49,7 +49,7 @@ then
 
 
     oc new-project workshop-knative-intro-content
-    oc adm policy add-role-to-group admin developers -n workshop-knative-intro-content
+    #oc adm policy add-role-to-group admin developers -n workshop-knative-intro-content
     #oc patch servicemeshmemberrolls.maistra.io -n istio-system default --type='json' -p='[{"op": "add", "path": "/spec/members/0", "value":"workshop-knative-intro-content"}]'
 
 
@@ -64,8 +64,11 @@ then
   echo "Create projects to run the workshop"
 
   for i in $(eval echo "{1..$USERCOUNT}") ; do
+    oc login -u user$i -p redhat  > /dev/null 2>&1
+    oc login -u clusteradmin -p redhat > /dev/null 2>&1
     oc new-project workshop-knative-intro-user$i > /dev/null 2>&1
     oc adm policy add-role-to-user admin user$i -n workshop-knative-intro-user$i
+    oc adm policy add-role-to-user admin user$i -n workshop-knative-intro-content
   done
 
 
@@ -92,10 +95,10 @@ oc project workshop-knative-intro-content
 
 if [ $MULTIUSER = true ]
 then
-  .workshop/scripts/deploy-spawner.sh
+  .workshop/scripts/deploy-spawner.sh  --settings=develop
   echo "multiuser" > typedeployed
 else
-  .workshop/scripts/deploy-personal.sh
+  .workshop/scripts/deploy-personal.sh  --settings=develop
   echo "personal" > typedeployed
 fi
 
