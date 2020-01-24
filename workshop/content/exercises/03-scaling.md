@@ -45,19 +45,19 @@ cd $TUTORIAL_HOME/02-basics/knative
 The service can be deployed using the command:
 
 ```execute
-oc apply -n {{ project_namespace }} -f service.yaml
+oc apply  -f service.yaml
 ```
 
 After the deployment of the service was successful we should see a Kubernetes deployment like `greeter-v1-deployment`. Wait until field `Ready` is `TRUE`:
 
 ```execute
-kn service list --namespace {{ project_namespace }}
+kn service list
 ```
 
 <h1>Invoke Service</h1>
 
 ```execute
-export SVC_URL=`oc get rt greeter -n {{ project_namespace }} --template '{{.status.url}}'` && http $SVC_URL
+{% raw %}export SVC_URL=`oc get rt greeter  --template '{{.status.url}}'` && http $SVC_URL{% endraw %}
 ```
 
 The last http command should return a response like *Hi greeter ⇒ '9be9ccd9a2e3' : 1*
@@ -122,7 +122,7 @@ cd $TUTORIAL_HOME/04-scaling/knative
 ```
 
 ```execute
-oc apply -n {{ project_namespace }} -f service-10.yaml
+oc apply  -f service-10.yaml
 ```
 
 <h2>Invoke Service</h2>
@@ -130,7 +130,7 @@ oc apply -n {{ project_namespace }} -f service-10.yaml
 Invoke once to check that everything is ok (if not repeat the command until you get an answer):
 
 ```execute
-export SVC_URL=`oc get rt prime-generator -n {{ project_namespace }} --template '{{.status.url}}'` && http $SVC_URL
+{% raw %}export SVC_URL=`oc get rt prime-generator  --template '{{.status.url}}'` && http $SVC_URL{% endraw %}
 ```
 
 We will not invoke the service directly as we need to send the load to see the autoscaling.
@@ -138,7 +138,7 @@ We will not invoke the service directly as we need to send the load to see the a
 Run watch command in the secondary terminal and run the following command:
 
 ```execute-2
-watch 'oc get pods -n {{ project_namespace }}'
+watch 'oc get pods '
 ```
 
 <h2>Load the service</h2>
@@ -212,7 +212,7 @@ spec:
 
 
 ```execute
-oc apply -n {{ project_namespace }} -f service-min-scale.yaml
+oc apply  -f service-min-scale.yaml
 ```
 
 After the deployment was successful we should see a Kubernetes Deployment called prime-generator-v2-deployment with two pods available.
@@ -221,14 +221,14 @@ After the deployment was successful we should see a Kubernetes Deployment called
 Invoke once to check that everything is ok (if not repeat the command until you get an answer):
 
 ```execute
-export SVC_URL=`oc get rt prime-generator -n {{ project_namespace }} --template '{{.status.url}}'` && http $SVC_URL
+{% raw %}export SVC_URL=`oc get rt prime-generator  --template '{{.status.url}}'` && http $SVC_URL{% endraw %}
 ```
 
 
 In the secondary terminal and run the following command :
 
 ```execute-2
-watch 'oc get pods -n {{ project_namespace }}'
+watch 'oc get pods '
 ```
 
 Let us send some load to the service to trigger autoscaling.
@@ -243,8 +243,8 @@ When all requests are done and if we are beyond the `scale-to-zero-grace-period`
 <h1>Cleanup</h1>
 
 ```execute
-oc -n {{ project_namespace }} delete services.serving.knative.dev greeter &&\
-oc -n {{ project_namespace }} delete services.serving.knative.dev prime-generator
+oc  delete services.serving.knative.dev greeter &&\
+oc  delete services.serving.knative.dev prime-generator
 ```
 ...and stop the watch command
 

@@ -106,7 +106,7 @@ fi
 
 #oc patch  $(oc get dc -o name)  --type='json' --patch='[{"op": "add", "path": "/spec/template/metadata/annotations", "value":{"sidecar.istio.io/inject": "true"}}]'
 
-sleep 5
+sleep 15
 .workshop/scripts/build-workshop.sh
 oc rollout status $(oc get dc -o name)
 sleep 10

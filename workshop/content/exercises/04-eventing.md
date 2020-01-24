@@ -16,9 +16,9 @@ In the eventing related subsections of this tutorial, event sources are configur
 
 The logs could be watched using the command:
 
-`oc logs -n {{ project_namespace }} -f <pod-name> -c user-container`
+`oc logs  -f <pod-name> -c user-container`
 
-<em>Note: You can use the command stern -n {{ project_namespace }} event-greeter, to filter the logs further add -c user-container to the stern command.</em>
+<em>Note: You can use the command stern  event-greeter, to filter the logs further add -c user-container to the stern command.</em>
 
 The logs will have the output like below printing every minute.
 
@@ -79,13 +79,13 @@ When you watch logs, you will notice this data being delivered to the service.</
 Run the following commands to create the event source resources:
 
 ```execute
-oc apply -n {{ project_namespace }} -f event-source-svc.yaml
+oc apply  -f event-source-svc.yaml
 ```
 
 <h3>Verification</h3>
 
 ```execute
-oc -n {{ project_namespace }} get cronjobsources.sources.eventing.knative.dev
+oc  get cronjobsources.sources.eventing.knative.dev
 ```
 
 Running the above command should return the following result:
@@ -96,7 +96,7 @@ Running the above command should return the following result:
 The cronjob source also creates a service pod,
 
 ```execute
-oc -n {{ project_namespace }} get pods
+oc  get pods
 ```
 
 The above command will return an output like,
@@ -139,7 +139,7 @@ spec:
 Run the following commands to create the service:
 
 ```execute
-oc apply -n {{ project_namespace }} -f service.yaml
+oc apply  -f service.yaml
 ```
 
 You can watch logs to see the cron job source sending an event every 1 minute.
@@ -149,20 +149,20 @@ You can watch logs to see the cron job source sending an event every 1 minute.
 <h4>sources</h4>
 
 ```execute
-oc --namespace {{ project_namespace }} get cronjobsources.sources.eventing.knative.dev event-greeter-cronjob-source
+oc  get cronjobsources.sources.eventing.knative.dev event-greeter-cronjob-source
 ```
 
 <h4>services</h4>
 
 ```execute
-kubectl --namespace {{ project_namespace }}  get services.serving.knative.dev event-greeter
+kubectl   get services.serving.knative.dev event-greeter
 ```
 
 <h2>Cleanup</h2>
 
 ```execute
-oc -n {{ project_namespace }} delete services.serving.knative.dev event-greeter
-oc -n {{ project_namespace }} delete cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source
+oc  delete services.serving.knative.dev event-greeter
+oc  delete cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source
 ```
 
 <h1>Source to Subscriber</h1>
@@ -199,13 +199,13 @@ cd $TUTORIAL_HOME/05-eventing/knative
 Run the following commands to create the channel:
 
 ```execute
-oc apply -n {{ project_namespace }} -f channel.yaml
+oc apply  -f channel.yaml
 ```
 
 <h4>Verification</h4>
 
 ```execute
-oc -n {{ project_namespace }} get channels.eventing.knative.dev
+oc  get channels.eventing.knative.dev
 ```
 
 Running the above command should return the following result:
@@ -245,13 +245,13 @@ When you watch logs, you will notice this data being delivered to the service.</
 Run the following commands to create the event source resources:
 
 ```execute
-oc apply -n {{ project_namespace }} -f event-source.yaml
+oc apply  -f event-source.yaml
 ```
 
 <h4>Verification</h4>
 
 ```execute
-oc -n {{ project_namespace }} get cronjobsources.sources.eventing.knative.dev
+oc  get cronjobsources.sources.eventing.knative.dev
 ```
 
 Running the above command should return the following result:
@@ -262,7 +262,7 @@ Running the above command should return the following result:
 The cronjob source also creates a service pod:
 
 ```execute
-oc -n {{ project_namespace }} get pods
+oc  get pods
 ```
 
 The above command will return an output like:
@@ -296,14 +296,14 @@ spec:
 Run the following commands to create the channel subscriber:
 
 ```execute
-oc apply -n {{ project_namespace }} -f channel-subscriber.yaml
+oc apply  -f channel-subscriber.yaml
 ```
 
 
 <h4>Verification</h4>
 
 ```execute
-oc -n {{ project_namespace }} get subscriptions.eventing.knative.dev
+oc  get subscriptions.eventing.knative.dev
 ```
 
 Running the above command should return the following result:
@@ -317,19 +317,19 @@ Running the above command should return the following result:
 <h3>channel</h3>
 
 ```execute
-oc --namespace {{ project_namespace }} get channels.eventing.knative.dev ch-event-greeter
+oc  get channels.eventing.knative.dev ch-event-greeter
 ```
 
 <h3>sources</h3>
 
 ```execute
-oc --namespace {{ project_namespace }} get cronjobsources.sources.eventing.knative.dev event-greeter-cronjob-source
+oc  get cronjobsources.sources.eventing.knative.dev event-greeter-cronjob-source
 ```
 
 <h3>subscription</h3>
 
 ```execute
-oc --namespace {{ project_namespace }} get subscriptions.eventing.knative.dev event-greeter-subscriber
+oc  get subscriptions.eventing.knative.dev event-greeter-subscriber
 ```
 
 
@@ -366,7 +366,7 @@ spec:
 Run the following commands to create the service:
 
 ```execute
-oc apply -n {{ project_namespace }} -f service.yaml
+oc apply  -f service.yaml
 ```
 
 You can watch logs to see the cron job source sending an event every 1 minute.
@@ -374,10 +374,10 @@ You can watch logs to see the cron job source sending an event every 1 minute.
 <h3>Cleanup</h3>
 
 ```execute
-oc -n {{ project_namespace }} delete services.serving.knative.dev event-greeter
-oc -n {{ project_namespace }} delete cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source
-oc -n {{ project_namespace }} delete channels.eventing.knative.dev ch-event-greeter
-oc -n {{ project_namespace }} delete subscriptions.eventing.knative.dev event-greeter-subscriber
+oc  delete services.serving.knative.dev event-greeter
+oc  delete cronjobsources.sources.eventing.knative.dev  event-greeter-cronjob-source
+oc  delete channels.eventing.knative.dev ch-event-greeter
+oc  delete subscriptions.eventing.knative.dev event-greeter-subscriber
 ```
 
 <h1>Triggers and Brokers</h1>
@@ -399,13 +399,13 @@ cd $TUTORIAL_HOME/05-eventing/knative
 First of all, we need to create a Broker. Knative eventing provides a Broker named `default` when a special label is added to a namespace.
 
 ```execute
-oc label namespace {{ project_namespace }} knative-eventing-injection=enabled
+oc label namespace  $(oc project | awk -F \" '{print $2}') knative-eventing-injection=enabled
 ```
 
 This will create the `default` broker. Execute the following command to see it:
 
 ```execute
-oc --namespace {{ project_namespace }} get brokers.eventing.knative.dev
+oc  get brokers.eventing.knative.dev
 ```
 
 Output should be similar to below:
@@ -416,7 +416,7 @@ Output should be similar to below:
 Labeling the namespace will also create some pods that are related to the `default` broker.
 
 ```execute
-oc --namespace {{ project_namespace }} get pods
+oc  get pods
 ```
 
 Running the above command should return the following result:
@@ -458,7 +458,7 @@ spec:
 Run the following commands to create the service:
 
 ```execute
-oc apply -n {{ project_namespace }} -f service.yaml
+oc apply  -f service.yaml
 ```
 
 <h2>Event Source</h2>
@@ -498,7 +498,7 @@ spec:
 Run the following commands to create the event source resources:
 
 ```execute
-oc apply -n {{ project_namespace }} -f event-source-broker.yaml
+oc apply  -f event-source-broker.yaml
 ```
 
 <h2>Trigger</h2>
@@ -528,7 +528,7 @@ spec:
 Run the following commands to create the event source resources:
 
 ```execute
-oc apply -n {{ project_namespace }} -f trigger.yaml
+oc apply  -f trigger.yaml
 ```
 
 <h2>Verification</h2>
@@ -541,27 +541,27 @@ When you watch logs, you will notice this data being delivered to the service.
 <h4>sources</h4>
 
 ```execute
-oc --namespace {{ project_namespace }} get containersources.sources.eventing.knative.dev heartbeat-event-source
+oc  get containersources.sources.eventing.knative.dev heartbeat-event-source
 ```
 
 <h4>services</h4>
 
 ```execute
 # get a Knative Service (short name ksvc) called greeter
-oc --namespace {{ project_namespace }}  get services.serving.knative.dev event-greeter
+oc   get services.serving.knative.dev event-greeter
 ```
 
 <h4>triggers</h4>
 
 ```execute
-oc --namespace {{ project_namespace }}  get triggers.eventing.knative.dev event-greeter-trigger
+oc   get triggers.eventing.knative.dev event-greeter-trigger
 ```
 
 <h2>Cleanup</h2>
 
 ```execute
-oc -n {{ project_namespace }} delete services.serving.knative.dev event-greeter
-oc -n {{ project_namespace }} delete containersource.sources.eventing.knative.dev heartbeat-event-source
-oc -n {{ project_namespace }} delete triggers.eventing.knative.dev event-greeter-trigger
-oc -n {{ project_namespace }} delete brokers.eventing.knative.dev default
+oc  delete services.serving.knative.dev event-greeter
+oc  delete containersource.sources.eventing.knative.dev heartbeat-event-source
+oc  delete triggers.eventing.knative.dev event-greeter-trigger
+oc  delete brokers.eventing.knative.dev default
 ```

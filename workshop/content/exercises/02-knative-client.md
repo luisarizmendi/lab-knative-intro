@@ -9,7 +9,7 @@ We will perform the same operations in this chapter but with kn that is already 
 To create the greeter service using kn run the following command:
 
 ```execute
-kn service create greeter --namespace {{ project_namespace }} --image quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
+kn service create greeter  --image quay.io/rhdevelopers/knative-tutorial-greeter:quarkus
 ```
 
 A successful create of the greeter service should show a response like
@@ -25,7 +25,7 @@ A successful create of the greeter service should show a response like
 You can list the created services using the command:
 
 ```execute
-kn service list --namespace {{ project_namespace }}
+kn service list
 ```
 
 <h2>Invoke Service</h2>
@@ -33,7 +33,7 @@ kn service list --namespace {{ project_namespace }}
 You can verify what the kn client has deployed, to make sure its inline with what you have see in [previous chapter](01-basics-and-fundamentals).
 
 ```execute
-export SVC_URL=`oc get rt greeter -n {{ project_namespace }} --template '{{.status.url}}'` && http $SVC_URL
+export SVC_URL=`oc get rt greeter  --template '{{.status.url}}'` && http $SVC_URL
 ```
 
 <h2>Update Knative Service</h2>
@@ -132,7 +132,7 @@ A successful delete should show an output like
 Listing services you will notice that the greeter service no longer exists.
 
 ```execute
-kn service list --namespace {{ project_namespace }}
+kn service list
 ```
 
 <h1>Knative Revision Commands</h1>
