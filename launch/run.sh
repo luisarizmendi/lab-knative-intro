@@ -40,8 +40,8 @@ then
     cd prerequisites/nfs-autoprovisioner/  ; chmod +x run.sh ; ./run.sh ; cd ../..
     fi
 
-    #echo "Configure Service Mesh"
-    #cd prerequisites/service-mesh   ; chmod +x run.sh ; ./run.sh ; cd ../..
+    echo "Configure Service Mesh"
+    cd prerequisites/service-mesh   ; chmod +x run.sh ; ./run.sh ; cd ../..
 
 
     echo "Configure Knative"

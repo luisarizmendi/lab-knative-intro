@@ -47,7 +47,7 @@ The event source listens to external events e.g. a kafka topic or for a file on 
 Navigate to the tutorial chapter’s `knative` folder:
 
 ```execute
-cd $TUTORIAL_HOME/02-basics/knative
+cd $TUTORIAL_HOME/05-eventing/knative
 ```
 
 <h3>Create Event Source</h3>
@@ -83,6 +83,7 @@ oc apply  -f event-source-svc.yaml
 ```
 
 <h3>Verification</h3>
+Wait until is "Ready"
 
 ```execute
 oc  get cronjobsources.sources.eventing.knative.dev

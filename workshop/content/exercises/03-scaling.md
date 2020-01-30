@@ -125,9 +125,15 @@ cd $TUTORIAL_HOME/04-scaling/knative
 oc apply  -f service-10.yaml
 ```
 
+Wait until field `Ready` is `TRUE`:
+
+```execute
+kn service list
+```
+
 <h2>Invoke Service</h2>
 
-Invoke once to check that everything is ok (if not repeat the command until you get an answer):
+Invoke once to check that everything is ok (if not repeat the command until you get an answer, It could take some time until you don't receive the error 500):
 
 ```execute
 {% raw %}export SVC_URL=`oc get rt prime-generator  --template '{{.status.url}}'` && http $SVC_URL{% endraw %}
@@ -138,7 +144,7 @@ We will not invoke the service directly as we need to send the load to see the a
 Run watch command in the secondary terminal and run the following command:
 
 ```execute-2
-watch 'oc get pods '
+watch 'oc get pods | grep -v lab'
 ```
 
 <h2>Load the service</h2>
@@ -228,7 +234,7 @@ Invoke once to check that everything is ok (if not repeat the command until you 
 In the secondary terminal and run the following command :
 
 ```execute-2
-watch 'oc get pods '
+watch 'oc get pods  | grep -v lab '
 ```
 
 Let us send some load to the service to trigger autoscaling.
