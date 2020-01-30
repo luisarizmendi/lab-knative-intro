@@ -40,15 +40,15 @@ then
     cd prerequisites/nfs-autoprovisioner/  ; chmod +x run.sh ; ./run.sh ; cd ../..
     fi
 
-    echo "Configure Service Mesh"
-    cd prerequisites/service-mesh   ; chmod +x run.sh ; ./run.sh ; cd ../..
+    #echo "Configure Service Mesh"
+    #cd prerequisites/service-mesh   ; chmod +x run.sh ; ./run.sh ; cd ../..
 
 
     echo "Configure Knative"
     cd prerequisites/knative   ; chmod +x run.sh ; ./run.sh ; cd ../..
 
 
-    oc new-project workshop-knative-intro-content
+    #oc new-project workshop-knative-intro-content
     #oc adm policy add-role-to-group admin developers -n workshop-knative-intro-content
     #oc patch servicemeshmemberrolls.maistra.io -n istio-system default --type='json' -p='[{"op": "add", "path": "/spec/members/0", "value":"workshop-knative-intro-content"}]'
 
@@ -91,7 +91,7 @@ fi
 echo "Building and deploying workshop"
 cd ..
 
-oc project workshop-knative-intro-content
+oc new-project workshop-knative-intro-content
 
 if [ $MULTIUSER = true ]
 then
@@ -112,7 +112,7 @@ oc rollout status $(oc get dc -o name)
 sleep 10
 
 
-WORKSHOP_URL=$(oc get routes.route.openshift.io  | grep workshop | awk '{print $2}')
+WORKSHOP_URL=$(oc get routes.route.openshift.io  | grep lab | awk '{print $2}')
 
 echo ""
 echo ""
