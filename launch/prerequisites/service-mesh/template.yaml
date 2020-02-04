@@ -8,12 +8,12 @@ objects:
 - kind: Subscription
   apiVersion: operators.coreos.com/v1alpha1
   metadata:
-    name: elasticsearch-operator-servicemesh
+    name: elasticsearch-operator
     namespace: "${NAMESPACE_SERVICEMESH}"
   spec:
     channel: "${CHANNEL_ELASTICSEARCH}"
     installPlanApproval: Automatic
-    name: elasticsearch-operator-servicemesh
+    name: elasticsearch-operator
     source: redhat-operators
     sourceNamespace: openshift-marketplace
 - kind: Subscription
