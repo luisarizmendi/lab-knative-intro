@@ -33,7 +33,7 @@ kn service list
 You can verify what the kn client has deployed, to make sure its inline with what you have see in [previous chapter](01-basics-and-fundamentals).
 
 ```execute
-export SVC_URL=`oc get rt greeter  --template '{{.status.url}}'` && http $SVC_URL
+{% raw %}export SVC_URL=`oc get rt greeter  --template '{{.status.url}}'` && http $SVC_URL{% endraw %}
 ```
 
 <h2>Update Knative Service</h2>
