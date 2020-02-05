@@ -156,7 +156,7 @@ oc  get cronjobsources.sources.eventing.knative.dev event-greeter-cronjob-source
 <h4>services</h4>
 
 ```execute
-kubectl   get services.serving.knative.dev event-greeter
+oc get services.serving.knative.dev event-greeter
 ```
 
 <h2>Cleanup</h2>
